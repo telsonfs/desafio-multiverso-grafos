@@ -14,6 +14,11 @@ class Universo:
     def getCodMundo(self, nome):
         return self.mundos[nome]
 
+    def getNomeMundo(self, i):
+        for nome in self.mundos:
+            if self.mundos[nome] == i:
+                return nome
+
     def adcionarCaminho(self, inicio, fim, distancia):
         self.conexoes[self.getCodMundo(inicio)][self.getCodMundo(fim)] = distancia
     
@@ -31,10 +36,18 @@ class Universo:
         self.adcionarCaminho('d', 'e', 80)
         self.adcionarCaminho('e', 'b', 30)
     
-    
+    def getVizinhos(self, mundo):
+        vizinhos = []
 
+        for i in range(self.numMundos):
+            if self.conexoes[self.getCodMundo(mundo)][i] > 0:
+                vizinhos.append(self.getNomeMundo(i))
+
+        return vizinhos
 
 novinhos = Universo()
 
 novinhos.criaUniverso()
+
+print(novinhos.getVizinhos('e'))
 print(novinhos.mostraDistancia('a', 'b'))
